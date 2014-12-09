@@ -34,3 +34,33 @@ cacheSolve <- function(x, ...) {
 	inv
 }
 
+
+
+cachedMatrixTest <- function(n) {
+	message("Creating original matrix...")
+	print(system.time(m <- matrix(rnorm(n*n), c(n, n))))
+	message("Matrix created with random numbers")
+	message("------------")
+	message("Inverting the matrix with solve()...")
+	print(system.time(inv1 <- solve(m)))
+	message("Inverted matrix in variable inv1")
+	message("------------")
+	message("Creating cachedMatrix object...")
+	print(system.time(cacheMat <- makeCacheMatrix(m)))
+	message("CachedMatrix object created")
+	message("------------")
+	message("Inverting the matrix with cacheSolve()...")
+	print(system.time(inv2 <- cacheSolve(cacheMat)))
+	message("Inverted matrix in variable inv2")
+	message("------------")
+	message("Inverting the matrix with cacheSolve()...")
+	print(system.time(inv3 <- cacheSolve(cacheMat)))
+	message("Inverted matrix in variable inv3")
+	message("============")	
+	message("Results: ")
+	message("identical(inv1, inv2): ", appendLF = FALSE)
+	message(identical(inv1, inv2))
+	message("identical(inv2, inv3): ", appendLF = FALSE)
+	message(identical(inv2, inv3))
+}
+
